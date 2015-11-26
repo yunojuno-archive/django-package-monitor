@@ -1,0 +1,7 @@
+{# extend change list to add the "reload local" button #}
+{% extends "admin/change_list.html" %}
+{% block object-tools-items %}
+<li>
+  <a href="{% url 'package_monitor:reload' %}">Reload local requirements</a>
+</li>
+{% endblock object-tools-items %}

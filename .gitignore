@@ -1,0 +1,3 @@
+*.db
+*.zip
+django_package_monitor.egg-info
