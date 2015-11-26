@@ -1,7 +1,7 @@
 django-package-monitor
 ======================
 
-A Django app for keeping track of requirements
+A Django app for keeping track of dependency updates.
 
 Background
 ----------
@@ -10,7 +10,7 @@ At YunoJuno we have a Django project that includes almost 100 external packages.
 In order to manage updates to these we have a rolling development task that
 comes around in the first week of each month, and includes the following:
 
-1. Using `pip list --outdated` list out all available updates
+1. Using ``pip list --outdated`` list out all available updates
 2. Group updates (using `semver <http://semver.org/>`_) into Major, Minor, Patch, Other
 3. Apply patch updates in a single update / commit
 4. Apply minor updates as a group, see what breaks, remove, rinse, repeat
@@ -105,11 +105,54 @@ option:
 
     # remove all object, load up the local requirements file, and check PyPI
     $ python manage.py refresh_packages --clean --local --remote
-
+    
 Tests
 -----
 
-There is a test suite that can be run using tox.
+There is a test suite that can be run using tox:
+
+.. code:: shell
+
+    $ pip install -r requirements
+    $ tox
+
+In addition to the unit tests, the source distribution also includes a fully-functioning Django
+project, that can be run from the repo root, and used to demonstrate how it works:
+
+.. code:: shell
+
+    $ git clone git@github.com:yunojuno/django-package-monitor.git
+    $ cd django-package-monitor
+    $ pip install -r requirements.txt
+    # you will need to create a superuser in order to access the admin site
+    $ python manage.py createsuperuser
+    $ python manage.py runserver
+
+If you then log in to the app (http://localhost:8000/admin by default), you can then see the admin
+list page:
+
+.. image:: https://github.com/yunojuno/django-package-monitor/blob/master/screenshots/no_packages.png
+   :alt: Screenshot of admin list view (empty)
+
+If you click on the "Reload local requirements" button in the top-right, it will load up the contents
+of the requirements file that you used earlier:
+
+.. image:: https://github.com/yunojuno/django-package-monitor/blob/master/screenshots/local_only.png
+   :alt: Screenshot of admin list view populated with local requirements
+
+At this point it has just parse the requirements file, and stored the current working version of
+each package. In order to see what the latest versions are, select all the packages, and choose
+"Update selected packages from PyPI" form the actions list:
+
+.. image:: https://github.com/yunojuno/django-package-monitor/blob/master/screenshots/select_all.png
+   :alt: Screenshot of admin list view with all requirements selected
+
+This may take some time, as it will call the PyPI API for each package (excluding those that are
+marked as editable), and download the latest version info for each. At the end of this, you should
+see the page updated with the new version information:
+
+.. image:: https://github.com/yunojuno/django-package-monitor/blob/master/screenshots/remote.png
+   :alt: Screenshot of admin list view with requirement info updated from PyPI
 
 Contributing
 ------------
