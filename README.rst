@@ -3,6 +3,9 @@ django-package-monitor
 
 A Django app for keeping track of dependency updates.
 
+.. image:: https://travis-ci.org/yunojuno/django-package-monitor.svg?branch=master
+    :target: https://travis-ci.org/yunojuno/django-package-monitor
+
 Background
 ----------
 
@@ -98,12 +101,12 @@ option. You can run both of these command together:
     # load up the local requirements file, and check PyPI
     $ python manage.py refresh_packages --local --remote
 
-If you want to clean out the existing table before loading the local file, use the ``--clean``
+If you want to clean out the existing ``PackageVersion`` table before loading the local file, use the ``--clean``
 option:
 
 .. code:: shell
 
-    # remove all object, load up the local requirements file, and check PyPI
+    # clear out database, load up the local requirements file, and check PyPI
     $ python manage.py refresh_packages --clean --local --remote
     
 Tests
@@ -140,8 +143,8 @@ of the requirements file that you used earlier:
 .. image:: https://github.com/yunojuno/django-package-monitor/blob/master/screenshots/local_only.png
    :alt: Screenshot of admin list view populated with local requirements
 
-At this point it has just parse the requirements file, and stored the current working version of
-each package. In order to see what the latest versions are, select all the packages, and choose
+At this point it has parsed the requirements file, and stored the current working version of
+each package (as ``current_version``). In order to see what the latest versions are, select all the packages, and choose
 "Update selected packages from PyPI" form the actions list:
 
 .. image:: https://github.com/yunojuno/django-package-monitor/blob/master/screenshots/select_all.png
@@ -149,7 +152,8 @@ each package. In order to see what the latest versions are, select all the packa
 
 This may take some time, as it will call the PyPI API for each package (excluding those that are
 marked as editable), and download the latest version info for each. At the end of this, you should
-see the page updated with the new version information:
+see the page updated with the new version information (as ``latest_version``) - as well as the licence
+information that is stored in the PyPI metadata:
 
 .. image:: https://github.com/yunojuno/django-package-monitor/blob/master/screenshots/remote.png
    :alt: Screenshot of admin list view with requirement info updated from PyPI
