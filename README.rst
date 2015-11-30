@@ -46,7 +46,14 @@ Download / install the app using pip:
 
 .. code:: shell
 
-    pip install django-package-monitor
+    pip install django-package-monitor --process-dependency-links
+
+NB This package relies on `semantic_version` which has a bug in its PyPI
+distributed version (2.4.2). We have submitted a patch for this bug
+(https://github.com/rbarrois/python-semanticversion/pull/34), but until this
+is merged and a new release made, you need to install this package with the
+'--process-dependency-links' option. Pip will warn that this is soon to be
+deprecated - ignore this warning.
 
 Add the app ``package_monitor`` to your ``INSTALLED_APPS`` Django setting:
 
