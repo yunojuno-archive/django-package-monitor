@@ -8,14 +8,14 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name="django-package-monitor",
-    version="0.1.3",
+    version="0.2.0",
     packages=[
         'package_monitor',
         'package_monitor.management',
         'package_monitor.management.commands',
         'package_monitor.migrations',
     ],
-    install_requires=['django>=1.8'],
+    install_requires=['semantic_version', 'requirements'],
     include_package_data=True,
     description='Requirements package monitor for Django projects.',
     long_description=README,
