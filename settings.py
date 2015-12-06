@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from os import environ, path
 
-from django.core.exceptions import ImproperlyConfigured
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -15,14 +13,14 @@ USE_I18N = True
 USE_TZ = True
 TIMEZONE = 'Europe/London'
 
-DATABASES= {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'package_monitor.db',
     }
 }
 
-INSTALLED_APPS = (  
+INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -111,15 +109,15 @@ APPEND_SLASH = True
 
 # ======== coverage settings ====================
 # Use nose to run all tests
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+# TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # Tell nose to measure coverage on the 'foo' and 'bar' apps
-NOSE_ARGS = [
-    '--with-coverage',
-    '--cover-package=package_monitor',
-    '--cover-html',
-    '--cover-html-dir=coverage_reports'
-]
+# NOSE_ARGS = [
+#     '--with-coverage',
+#     '--cover-package=package_monitor',
+#     '--cover-html',
+#     '--cover-html-dir=coverage_reports'
+# ]
 
 assert DEBUG is True, "This project is only intended to be used for testing."
 
