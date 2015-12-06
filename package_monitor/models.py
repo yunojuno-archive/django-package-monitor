@@ -76,7 +76,6 @@ class PackageVersion(models.Model):
         help_text="The URL to check - PyPI or repo (if editable)."
     )
 
-
     class Meta:
         ordering = ["package_name"]
         verbose_name_plural = "Package versions"
@@ -114,9 +113,9 @@ class PackageVersion(models.Model):
     def update_from_pypi(self):
         """Call get_latest_version and then save the object."""
         info  = self.get_info()
-        self.licence = package_licence(info)[:100]
+        self.licence = package_licence(info)
         self.latest_version = package_version(info)
         self.diff_status = version_diff(self.current_version, self.latest_version)
         self.checked_pypi_at = tz_now()
         self.save()
-        return self        
+        return self

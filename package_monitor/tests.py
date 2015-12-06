@@ -30,6 +30,7 @@ def mock_info(packge_url):
     """Mock for package_info function."""
     return TEST_INFO
 
+
 def mock_get(packge_url):
     """Mock for requests.get function."""
     class response(object):
@@ -49,6 +50,12 @@ class FunctionTests(TestCase):
         self.assertEqual(package_info('foo'), TEST_INFO)
         self.assertEqual(package_version(TEST_INFO), Version(TEST_INFO.get('version')))
         self.assertEqual(package_licence(TEST_INFO), TEST_INFO.get('license'))
+
+    def test_package_licence(self):
+        self.assertEqual(package_licence({'license': None}), '')
+        self.assertEqual(package_licence({'license': "None"}), 'None')
+        self.assertEqual(package_licence({'license': "X" * 100}), "X" * 100)
+        self.assertEqual(package_licence({'license': "X" * 101}), "X" * 100)
 
 
 class VersionDiffTests(TestCase):

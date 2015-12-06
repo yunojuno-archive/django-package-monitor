@@ -5,8 +5,6 @@ import logging
 import requests
 import semantic_version
 
-import package_monitor.settings
-
 logger = logging.getLogger(__name__)
 
 
@@ -31,8 +29,9 @@ def package_version(package_info):
 
 
 def package_licence(package_info):
-    """Return the licence from info JSON."""
-    return package_info.get('license')
+    """Return the licence from info JSON (truncated to 100 chars)."""
+    licence = package_info.get('license') or ''
+    return licence[:100]
 
 
 def version_diff(version1, version2):
@@ -61,5 +60,3 @@ def version_diff(version1, version2):
             return v
 
     return 'other'
-
-
