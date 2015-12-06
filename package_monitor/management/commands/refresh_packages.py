@@ -18,10 +18,10 @@ logger = getLogger(__name__)
 def create_package_version(requirement):
     """Create a new PackageVersion from a requirement. Handles errors."""
     try:
-        pv = PackageVersion(requirement=requirement).save()
+        PackageVersion(requirement=requirement).save()
         logger.info("Package '%s' added.", requirement.name)  # noqa
     except IntegrityError:
-        logger.info("Package '%s' already exists.", requirement.name) # noqa
+        logger.info("Package '%s' already exists.", requirement.name)  # noqa
 
 
 def local():
@@ -32,6 +32,7 @@ def local():
         for r in requirements:
             logger.debug("Creating new package: %r", r)
             create_package_version(r)
+
 
 def remote():
     """Update package info from PyPI."""
@@ -48,7 +49,7 @@ def clean():
 
 
 class Command(BaseCommand):
-    
+
     help = (
         "This command can be used to load up a requirements file "
         "and check against PyPI for updates."
