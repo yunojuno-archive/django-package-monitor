@@ -1,7 +1,8 @@
 # -*- coding=utf-8 -*-
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
-urlpatterns = patterns(
-    'package_monitor.views',
-    url(r'^reload/', 'reload', name='reload')
-)
+from views import reload
+
+urlpatterns = [
+    url(r'^reload/', reload, name='reload', prefix='package_monitor.views')
+]
