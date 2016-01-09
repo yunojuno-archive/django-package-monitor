@@ -2,6 +2,7 @@
 import logging
 
 from django.contrib import admin
+from django.db.models import F
 from django.template.defaultfilters import truncatechars
 from django.utils.safestring import mark_safe
 
@@ -29,6 +30,47 @@ def check_pypi(modeladmin, request, queryset):
 check_pypi.short_description = "Update selected packages from PyPI"
 
 
+class UpdateAvailableListFilter(admin.SimpleListFilter):
+
+    """Enable filtering by packages with an update available."""
+
+    title = "Update available"
+    parameter_name = 'update'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('1', 'Yes'),
+            ('0', 'No'),
+            ('-1', 'Unknown'),
+        )
+
+    def queryset(self, request, queryset):
+        """Filter based on whether an update (of any sort) is available."""
+        if self.value() == '-1':
+            return queryset.filter(latest_version__isnull=True)
+        elif self.value() == '0':
+            return (
+                queryset
+                .filter(
+                    current_version__isnull=False,
+                    latest_version__isnull=False,
+                    latest_version=F('current_version')
+                )
+            )
+        elif self.value() == '1':
+            return (
+                queryset
+                .filter(
+                    current_version__isnull=False,
+                    latest_version__isnull=False
+                ).exclude(
+                    latest_version=F('current_version')
+                )
+            )
+        else:
+            return queryset
+
+
 class PackageVersionAdmin(admin.ModelAdmin):
 
     actions = (check_pypi,)
@@ -37,7 +79,7 @@ class PackageVersionAdmin(admin.ModelAdmin):
         'package_name', 'is_editable', '_updateable', 'current_version', 'next_version',
         'latest_version', '_licence', 'diff_status', 'checked_pypi_at'
     )
-    list_filter = ('diff_status', 'is_editable')
+    list_filter = ('diff_status', 'is_editable', UpdateAvailableListFilter)
     ordering = ["package_name"]
     readonly_fields = (
         'package_name', 'is_editable', 'current_version', 'next_version',
