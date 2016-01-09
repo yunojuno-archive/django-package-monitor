@@ -15,3 +15,7 @@ if REQUIREMENTS_FILE is None:
 
 if not path.exists(REQUIREMENTS_FILE):
     raise ImproperlyConfigured('Invalid REQUIREMENTS_FILE setting: %s' % REQUIREMENTS_FILE)
+
+
+# length of time to cache return data from PyPI
+PYPI_CACHE_EXPIRY = getattr(settings, 'PACKAGE_MONITOR_PYPI_CACHE_EXPIRY', 30)

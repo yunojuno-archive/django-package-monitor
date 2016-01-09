@@ -1,12 +1,12 @@
 # -*- coding: utf8 -*-
-import json
+# import json
 import logging
 
-from django.http import HttpResponseRedirect
+# from django.http import HttpResponseRedirect
 from django.contrib import admin
-from django.contrib.admin import ModelAdmin
-from django.core.urlresolvers import reverse
-from django.utils.safestring import mark_safe
+# from django.contrib.admin import ModelAdmin
+# from django.core.urlresolvers import reverse
+# from django.utils.safestring import mark_safe
 from django.template.defaultfilters import truncatechars
 
 from package_monitor.models import PackageVersion
@@ -29,13 +29,13 @@ class PackageVersionAdmin(admin.ModelAdmin):
     actions = (check_pypi,)
     change_list_template = 'change_list.html'
     list_display = (
-        'package_name', 'is_editable', 'current_version',
+        'package_name', 'is_editable', 'current_version', 'next_version',
         'latest_version', '_licence', 'diff_status', 'checked_pypi_at'
     )
     list_filter = ('diff_status',)
     ordering = ["package_name"]
     readonly_fields = (
-        'package_name', 'is_editable', 'current_version',
+        'package_name', 'is_editable', 'current_version', 'next_version',
         'latest_version', 'diff_status', 'checked_pypi_at',
         'url', 'licence', 'raw'
     )

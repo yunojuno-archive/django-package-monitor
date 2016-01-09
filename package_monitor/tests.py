@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Tests for the various auditing methods.
-"""
 from django.test import TestCase
 
 from mock import patch

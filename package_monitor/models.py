@@ -8,13 +8,8 @@ from django.utils.timezone import now as tz_now
 from semantic_version import Version
 from semantic_version.django_fields import VersionField
 
-from package_monitor import (
-    package_url,
-    package_info,
-    package_version,
-    package_licence,
-    version_diff
-)
+from package_monitor import pypi
+
 
 logger = logging.getLogger(__name__)
 
@@ -48,6 +43,10 @@ class PackageVersion(models.Model):
     latest_version = VersionField(
         null=True, blank=True,
         help_text="Latest version available from PyPI."
+    )
+    next_version = VersionField(
+        null=True, blank=True,
+        help_text="Next available version available from PyPI."
     )
     licence = models.CharField(
         max_length=100,
@@ -93,7 +92,7 @@ class PackageVersion(models.Model):
         else:
             # HACK: we only take the first version.
             self.current_version = Version.coerce(requirement.specs[0][1])
-            self.url = package_url(requirement.name)
+            self.url = pypi.package_url(requirement.name)
 
     def __unicode__(self):
         return u"Package '%s'" % self.raw
@@ -101,21 +100,13 @@ class PackageVersion(models.Model):
     def __str__(self):
         return unicode(self).encode('utf-8')
 
-    def get_info(self):
-        """Check PyPI for the latest version of the package.
-
-        Returns the 'info' block of the PyPI JSON as JSON. This contains
-        all the information that PyPI has on the release.
-
-        """
-        return None if self.is_editable else package_info(self.url)
-
     def update_from_pypi(self):
         """Call get_latest_version and then save the object."""
-        info  = self.get_info()
-        self.licence = package_licence(info)
-        self.latest_version = package_version(info)
-        self.diff_status = version_diff(self.current_version, self.latest_version)
+        package = pypi.Package(self.package_name)
+        self.licence = package.licence()
+        self.latest_version = package.latest_version()
+        self.next_version = package.next_version(self.current_version)
+        self.diff_status = pypi.version_diff(self.current_version, self.latest_version)
         self.checked_pypi_at = tz_now()
         self.save()
         return self
