@@ -67,12 +67,13 @@ class PackageVersion(models.Model):
         help_text="When PyPI was last checked for this package."
     )
     is_editable = models.BooleanField(
+        "Editable (-e)",
         default=False,
         help_text="True if this requirement is specified with '-e' flag."
     )
     url = models.URLField(
         null=True, blank=True,
-        help_text="The URL to check - PyPI or repo (if editable)."
+        help_text="The PyPI URL to check - (blank if editable)."
     )
 
     class Meta:
@@ -88,7 +89,8 @@ class PackageVersion(models.Model):
         self.package_name = requirement.name
         self.is_editable = requirement.editable
         if requirement.editable:
-            self.url = requirement.uri
+            self.url = ''
+            self.current_version = None
         else:
             # HACK: we only take the first version.
             self.current_version = Version.coerce(requirement.specs[0][1])

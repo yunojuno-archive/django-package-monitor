@@ -34,10 +34,10 @@ class PackageVersionAdmin(admin.ModelAdmin):
     actions = (check_pypi,)
     change_list_template = 'change_list.html'
     list_display = (
-        'package_name', 'is_editable', 'current_version', 'next_version',
+        'package_name', 'is_editable', '_updateable', 'current_version', 'next_version',
         'latest_version', '_licence', 'diff_status', 'checked_pypi_at'
     )
-    list_filter = ('diff_status',)
+    list_filter = ('diff_status', 'is_editable')
     ordering = ["package_name"]
     readonly_fields = (
         'package_name', 'is_editable', 'current_version', 'next_version',
@@ -49,6 +49,15 @@ class PackageVersionAdmin(admin.ModelAdmin):
         """Return truncated version of licence."""
         return truncatechars(obj.licence, 20)
     _licence.short_description = "PyPI licence"
+
+    def _updateable(self, obj):
+        """Return True if there are available updates."""
+        if obj.latest_version is None or obj.is_editable:
+            return None
+        else:
+            return obj.latest_version != obj.current_version
+    _updateable.boolean = True
+    _updateable.short_description = u"Update available"
 
     def available_updates(self, obj):
         """Print out all versions ahead of the current one."""
