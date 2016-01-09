@@ -8,7 +8,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name="django-package-monitor",
-    version="0.2.3",
+    version="0.3.0",
     packages=[
         'package_monitor',
         'package_monitor.management',
@@ -17,11 +17,7 @@ setup(
     ],
     install_requires=[
         'requirements-parser>=0.1.0',
-        # 'semantic_version==dev'
     ],
-    # dependency_links=[
-    #     'git+https://github.com/yunojuno/python-semanticversion.git@e8a1b3a543ab7d8b303f54e3ce48681f6c1589e7#egg=semantic_version-dev'
-    # ],
     include_package_data=True,
     description='Requirements package monitor for Django projects.',
     long_description=README,
