@@ -81,13 +81,14 @@ class PackageTests(TestCase):
     """Tests for parsing PyPI package data - NB uses static data."""
 
     def setUp(self):
-        with mock.patch('requests.get', mock_get):
-            self.package = pypi.Package('django')
+        # with mock.patch('requests.get', mock_get):
+        self.package = pypi.Package('django')
         self.test_data = mock_get('foo').json()
 
     def test_url(self):
         self.assertEqual(self.package.url, pypi.package_url('django'))
 
+    @mock.patch('requests.get', mock_get)
     def test_data_caching(self):
         cache.clear()
         key = pypi.cache_key('django')
@@ -96,25 +97,31 @@ class PackageTests(TestCase):
         self.assertEqual(package.data(), self.test_data)
         self.assertEqual(cache.get(key), self.package.data())
 
+    @mock.patch('requests.get', mock_get)
     def test_data(self):
         self.assertEqual(self.package.data(), self.test_data)
 
+    @mock.patch('requests.get', mock_get)
     def test_info(self):
         self.assertEqual(self.package.info(), self.test_data['info'])
 
+    @mock.patch('requests.get', mock_get)
     def test_licence(self):
         self.assertEqual(self.package.licence(), self.test_data['info']['license'])
         self.assertEqual(self.package.licence(), 'BSD')
 
+    @mock.patch('requests.get', mock_get)
     def test_latest_version(self):
         self.assertEqual(self.package.latest_version(), Version('1.9.1'))
 
+    @mock.patch('requests.get', mock_get)
     def test_all_versions(self):
         all_versions = self.package.all_versions()
         self.assertEqual(len(all_versions), 104)
         self.assertEqual(Version('1.0.1'), all_versions[0])
         self.assertEqual(Version('1.9.1'), all_versions[-1])
 
+    @mock.patch('requests.get', mock_get)
     def test_next_version(self):
         self.assertEqual(self.package.next_version(Version('0.0.1')), Version('1.0.1'))
         self.assertEqual(self.package.next_version(Version('1.0.0')), Version('1.0.1'))
