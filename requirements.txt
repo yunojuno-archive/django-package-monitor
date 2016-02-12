@@ -7,7 +7,7 @@ pluggy==0.3.1
 py==1.4.31
 requests==2.8.1
 requirements-parser==0.1.0
--e git+https://github.com/yunojuno/python-semanticversion.git@e8a1b3a543ab7d8b303f54e3ce48681f6c1589e7#egg=semantic_version-dev
+semantic-version==2.5.0
 six==1.10.0
 tox==2.2.1
 virtualenv==13.1.2
