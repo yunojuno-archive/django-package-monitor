@@ -65,9 +65,9 @@ You should therefore list add it to your requirements:
 Add the app ``package_monitor`` to your ``INSTALLED_APPS`` Django setting:
 
 .. code:: python
-    
+
     # settings.py
-    INSTALLED_APPS = (  
+    INSTALLED_APPS = (
         'django.contrib.admin',
         'django.contrib.auth',
         'django.contrib.contenttypes',
@@ -122,7 +122,7 @@ option:
 
     # clear out database, load up the local requirements file, and check PyPI
     $ python manage.py refresh_packages --clean --local --remote
-    
+
 Tests
 -----
 
@@ -171,6 +171,11 @@ information that is stored in the PyPI metadata:
 
 .. image:: https://github.com/yunojuno/django-package-monitor/blob/master/screenshots/remote.png
    :alt: Screenshot of admin list view with requirement info updated from PyPI
+
+If you drill down to the detail on an individual package, you can see all of the available versions:
+
+.. image:: https://github.com/yunojuno/django-package-monitor/blob/master/screenshots/package_details.png
+   :alt: Screenshot of Django package details
 
 Contributing
 ------------
