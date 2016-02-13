@@ -17,6 +17,7 @@ setup(
     ],
     install_requires=[
         'requirements-parser>=0.1.0',
+        'semantic_version>=2.5.0',
     ],
     include_package_data=True,
     description='Requirements package monitor for Django projects.',
