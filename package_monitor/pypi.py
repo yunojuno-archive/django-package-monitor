@@ -84,7 +84,7 @@ class Package(object):
         return self.data().get('info')
 
     def licence(self):
-        return self.info().get('license', '(unspecified)')
+        return self.info().get('license') or '(unspecified)'
 
     def latest_version(self):
         return parse_version(self.info().get('version'))
