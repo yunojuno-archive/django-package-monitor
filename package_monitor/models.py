@@ -71,6 +71,11 @@ class PackageVersion(models.Model):
         default=False,
         help_text="True if this requirement is specified with '-e' flag."
     )
+    is_parseable = models.BooleanField(
+        "Parseable",
+        default=False,
+        help_text="True if the version can be parsed as a valid semver version."
+    )
     url = models.URLField(
         null=True, blank=True,
         help_text="The PyPI URL to check - (blank if editable)."
@@ -93,7 +98,13 @@ class PackageVersion(models.Model):
             self.current_version = None
         else:
             # HACK: we only take the first version.
-            self.current_version = Version.coerce(requirement.specs[0][1])
+            try:
+                self.current_version = Version.coerce(requirement.specs[0][1])
+                self.is_parseable = True
+            except ValueError as ex:
+                self.current_version = None
+                self.is_parseable = False
+                logger.debug("Unparseable package version (%s): %s", requirement.specs[0][1], ex)
             self.url = pypi.package_url(requirement.name)
 
     def __unicode__(self):
@@ -106,9 +117,10 @@ class PackageVersion(models.Model):
         """Call get_latest_version and then save the object."""
         package = pypi.Package(self.package_name)
         self.licence = package.licence()
-        self.latest_version = package.latest_version()
-        self.next_version = package.next_version(self.current_version)
-        self.diff_status = pypi.version_diff(self.current_version, self.latest_version)
+        if self.is_parseable:
+            self.latest_version = package.latest_version()
+            self.next_version = package.next_version(self.current_version)
+            self.diff_status = pypi.version_diff(self.current_version, self.latest_version)
         self.checked_pypi_at = tz_now()
         self.save()
         return self

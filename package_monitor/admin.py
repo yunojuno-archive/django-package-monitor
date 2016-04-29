@@ -77,14 +77,14 @@ class PackageVersionAdmin(admin.ModelAdmin):
     change_list_template = 'change_list.html'
     list_display = (
         'package_name', 'is_editable', '_updateable', 'current_version', 'next_version',
-        'latest_version', '_licence', 'diff_status', 'checked_pypi_at'
+        'latest_version', '_licence', 'diff_status', 'checked_pypi_at', 'is_parseable'
     )
-    list_filter = ('diff_status', 'is_editable', UpdateAvailableListFilter)
+    list_filter = ('diff_status', 'is_editable', 'is_parseable', UpdateAvailableListFilter)
     ordering = ["package_name"]
     readonly_fields = (
         'package_name', 'is_editable', 'current_version', 'next_version',
         'latest_version', 'diff_status', 'checked_pypi_at',
-        'url', 'licence', 'raw', 'available_updates'
+        'url', 'licence', 'raw', 'available_updates', 'is_parseable'
     )
 
     def _licence(self, obj):
