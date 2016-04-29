@@ -122,4 +122,4 @@ APPEND_SLASH = True
 assert DEBUG is True, "This project is only intended to be used for testing."
 
 # == package_monitor settings ==
-PACKAGE_MONITOR_REQUIREMENTS_FILE = path.join(PROJECT_ROOT, 'requirements.txt')
+PACKAGE_MONITOR_REQUIREMENTS_FILE = path.join(PROJECT_ROOT, 'requirements/django19.txt')
