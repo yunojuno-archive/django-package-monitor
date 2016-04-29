@@ -143,9 +143,12 @@ of the requirements file that you used earlier:
 .. image:: https://github.com/yunojuno/django-package-monitor/blob/master/screenshots/local_only.png
    :alt: Screenshot of admin list view populated with local requirements
 
+NB If any requirements cannot be parsed by the `semantic_version.Version.coerce` method, then the
+`is_parseable` property is set to `False`, and the package is in effect unmanaged.
+
 At this point it has parsed the requirements file, and stored the current working version of
-each package (as ``current_version``). In order to see what the latest versions are, select all the packages, and choose
-"Update selected packages from PyPI" form the actions list:
+each package (as ``current_version``). In order to see what the latest versions are, select all the packages,
+and choose "Update selected packages from PyPI" form the actions list:
 
 .. image:: https://github.com/yunojuno/django-package-monitor/blob/master/screenshots/select_all.png
    :alt: Screenshot of admin list view with all requirements selected
