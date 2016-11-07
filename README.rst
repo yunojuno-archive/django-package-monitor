@@ -1,10 +1,17 @@
-django-package-monitor
+.. image:: https://travis-ci.org/yunojuno/django-package-monitor.svg?branch=master
+    :target: https://travis-ci.org/yunojuno/django-package-monitor
+
+.. image:: https://badge.fury.io/py/django-package-monitor.svg
+    :target: https://badge.fury.io/py/django-package-monitor
+
+.. image:: https://codecov.io/gh/yunojuno/django-package-monitor/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/yunojuno/django-package-monitor
+
+
+Django Package Monitor
 ======================
 
 A Django app for keeping track of dependency updates.
-
-.. image:: https://travis-ci.org/yunojuno/django-package-monitor.svg?branch=master
-    :target: https://travis-ci.org/yunojuno/django-package-monitor
 
 Background
 ----------

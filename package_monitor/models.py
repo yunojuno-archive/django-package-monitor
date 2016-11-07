@@ -8,7 +8,7 @@ from django.utils.timezone import now as tz_now
 from semantic_version import Version
 from semantic_version.django_fields import VersionField
 
-from package_monitor import pypi
+from . import pypi
 
 
 logger = logging.getLogger(__name__)

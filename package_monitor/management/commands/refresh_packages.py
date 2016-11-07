@@ -4,13 +4,12 @@ from logging import getLogger
 from optparse import make_option
 
 from django.core.management.base import BaseCommand
-from django.db import transaction
 from django.db.utils import IntegrityError
 
 from requirements import parse
 
-from package_monitor.models import PackageVersion
-from package_monitor.settings import REQUIREMENTS_FILE
+from ...models import PackageVersion
+from ...settings import REQUIREMENTS_FILE
 
 logger = getLogger(__name__)
 
@@ -82,4 +81,3 @@ class Command(BaseCommand):
 
         if options['remote']:
             remote()
-

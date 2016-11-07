@@ -6,7 +6,7 @@ from django.db.models import F
 from django.template.defaultfilters import truncatechars
 from django.utils.safestring import mark_safe
 
-from package_monitor.models import PackageVersion
+from .models import PackageVersion
 
 logger = logging.getLogger(__name__)
 

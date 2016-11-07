@@ -107,19 +107,7 @@ ROOT_URLCONF = 'urls'
 
 APPEND_SLASH = True
 
-# ======== coverage settings ====================
-# Use nose to run all tests
-# TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
-# Tell nose to measure coverage on the 'foo' and 'bar' apps
-# NOSE_ARGS = [
-#     '--with-coverage',
-#     '--cover-package=package_monitor',
-#     '--cover-html',
-#     '--cover-html-dir=coverage_reports'
-# ]
-
 assert DEBUG is True, "This project is only intended to be used for testing."
 
 # == package_monitor settings ==
-PACKAGE_MONITOR_REQUIREMENTS_FILE = path.join(PROJECT_ROOT, 'requirements/django19.txt')
+PACKAGE_MONITOR_REQUIREMENTS_FILE = path.join(PROJECT_ROOT, 'requirements.txt')

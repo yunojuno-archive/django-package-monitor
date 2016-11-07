@@ -5,8 +5,8 @@ from mock import patch
 from requirements import requirement
 from semantic_version import Version
 
-from package_monitor import models
-from package_monitor.tests import mock_get
+from .. import models
+from ..tests import mock_get
 
 
 class PackageVersionTests(TestCase):

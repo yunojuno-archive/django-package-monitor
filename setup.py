@@ -1,24 +1,19 @@
-import os
-from setuptools import setup
+from os import path, pardir, chdir
+from setuptools import setup, find_packages
 
-README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
+README = open(path.join(path.dirname(__file__), 'README.rst')).read()
+# requirements.txt must be included in MANIFEST.in and include_package_data must be True
+# in order for this to work; ensures that tox can use the setup to enforce requirements
+REQUIREMENTS = '\n'.join(open(path.join(path.dirname(__file__), 'requirements.txt')).readlines())
 
 # allow setup.py to be run from any path
-os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
+chdir(path.normpath(path.join(path.abspath(__file__), pardir)))
 
 setup(
     name="django-package-monitor",
-    version="0.3.5",
-    packages=[
-        'package_monitor',
-        'package_monitor.management',
-        'package_monitor.management.commands',
-        'package_monitor.migrations',
-    ],
-    install_requires=[
-        'requirements-parser>=0.1.0',
-        'semantic_version>=2.5.0',
-    ],
+    version="0.3.6",
+    packages=find_packages(),
+    install_requires=REQUIREMENTS,
     include_package_data=True,
     description='Requirements package monitor for Django projects.',
     long_description=README,

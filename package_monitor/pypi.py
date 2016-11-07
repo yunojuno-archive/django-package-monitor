@@ -7,7 +7,7 @@ from semantic_version import Version
 
 from django.core.cache import cache
 
-from package_monitor.settings import PYPI_CACHE_EXPIRY
+from .settings import PYPI_CACHE_EXPIRY
 
 
 logger = logging.getLogger(__name__)
