@@ -11,7 +11,7 @@ chdir(path.normpath(path.join(path.abspath(__file__), pardir)))
 
 setup(
     name="django-package-monitor",
-    version="0.3.6",
+    version="0.3.7",
     packages=find_packages(),
     install_requires=REQUIREMENTS,
     include_package_data=True,
