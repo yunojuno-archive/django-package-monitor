@@ -53,19 +53,29 @@ class Command(BaseCommand):
         "This command can be used to load up a requirements file "
         "and check against PyPI for updates."
     )
-    option1 = make_option(
-        '--local', action='store_true', dest='local',
-        default=False, help='Load local requirements file'
-    )
-    option2 = make_option(
-        '--remote', action='store_true', dest='remote',
-        default=False, help='Load latest from PyPI'
-    )
-    option3 = make_option(
-        '--clean', action='store_true', dest='clean',
-        default=False, help='Delete all existing requirements'
-    )
-    option_list = BaseCommand.option_list + (option1, option2, option3)
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--local',
+            action='store_true',
+            dest='local',
+            default=False,
+            help='Load local requirements file'
+        )
+        parser.add_argument(
+            '--remote',
+            action='store_true',
+            dest='remote',
+            default=False,
+            help='Load latest from PyPI'
+        )
+        parser.add_argument(
+            '--clean',
+            action='store_true',
+            dest='clean',
+            default=False,
+            help='Delete all existing requirements'
+        )
 
     def do_command(self, *args, **kwargs):
         raise NotImplementedError()
