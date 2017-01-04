@@ -11,11 +11,12 @@ chdir(path.normpath(path.join(path.abspath(__file__), pardir)))
 
 setup(
     name="django-package-monitor",
-    version="0.4.0",
+    version="0.4.1-dev",
     packages=find_packages(),
     install_requires=REQUIREMENTS,
     include_package_data=True,
     description='Requirements package monitor for Django projects.',
+    license='MIT',
     long_description=README,
     url='https://github.com/yunojuno/django-package-monitor',
     author='Hugo Rodger-Brown',
