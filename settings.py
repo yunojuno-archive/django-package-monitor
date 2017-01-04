@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
-from os import environ, path
+from os import getenv, path
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 # You should really update this in your app!
 # see https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '*')
+ALLOWED_HOSTS = getenv('ALLOWED_HOSTS', '*')
 
 USE_L10N = True
 USE_I18N = True
 USE_TZ = True
 TIMEZONE = 'Europe/London'
 
-EMAIL_HOST = os.getenv('EMAIL_HOST', 'localhost')
-EMAIL_PORT = os.get_env('EMAIL_PORT', '25')
+EMAIL_HOST = getenv('EMAIL_HOST', 'localhost')
+EMAIL_PORT = getenv('EMAIL_PORT', '25')
 
 DATABASES = {
     'default': {
@@ -50,7 +50,7 @@ SECRET_KEY = "secret"
 
 # requests can be really noisy, and it uses a bunch of different
 # loggers, so use this to turn all requests-related loggers down
-REQUESTS_LOGGING_LEVEL = environ.get('REQUESTS_LOGGING_LEVEL', 'WARNING')
+REQUESTS_LOGGING_LEVEL = getenv('REQUESTS_LOGGING_LEVEL', 'WARNING')
 
 LOGGING = {
     'version': 1,
