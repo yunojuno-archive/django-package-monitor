@@ -1,0 +1,33 @@
+<html>
+
+<body>
+
+<p>Packages refreshed at: {{ refreshed_at }}</p>
+
+<table>
+    <tr>
+        <th>Package name</th>
+        <th>Current version</th>
+        <th>Next version</th>
+        <th>Latest version</th>
+    </tr>
+{% for pv in major %}
+    {% include '_package.html' %}
+{% endfor %}
+{% for pv in minor %}
+    {% include '_package.html' %}
+{% endfor %}
+{% for pv in patch %}
+    {% include '_package.html' %}
+{% endfor %}
+</table>
+
+<p>The following packages are up to date:</p>
+<ul>
+{% for pv in none %}
+    <li>{{ pv.package_name }}=={{ pv.current_version }}</li>
+{% endfor %}
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+Packages refreshed at: {{ refreshed_at }}
+
+Major updates:
+{% for pv in major %}
+    {% include '_package.txt' %}
+{% empty %}
+(none)
+{% endfor %}
+
+Minor updates:
+{% for pv in minor %}
+{% include '_package.txt' %}
+{% empty %}
+(none)
+{% endfor %}
+
+Patch updates:
+{% for pv in patch %}
+{% include '_package.txt' %}
+{% empty %}
+(none)
+{% endfor %}
+
+Up-to-date:
+{% for pv in none %}
+* {{ pv.package_name }} ({{pv.current_version}})
+{% empty %}
+(none)
+{% endfor %}

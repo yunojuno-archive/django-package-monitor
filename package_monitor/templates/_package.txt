@@ -1,0 +1,1 @@
+* {{ pv.package_name }} ({{pv.current_version}}) - Next: {{ pv.next_version}} - Latest: {{ pv.latest_version }}

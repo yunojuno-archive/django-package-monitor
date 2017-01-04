@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 """Management command for syncing requirements."""
+from collections import defaultdict
 from logging import getLogger
-from optparse import make_option
 
+from django.core.mail import send_mail
 from django.core.management.base import BaseCommand
 from django.db.utils import IntegrityError
+from django.template.loader import render_to_string
+from django.utils.timezone import now as tz_now
 
 from requirements import parse
 
@@ -36,9 +39,14 @@ def local():
 def remote():
     """Update package info from PyPI."""
     logger.info("Fetching latest data from PyPI.")
-    for pv in PackageVersion.objects.exclude(is_editable=True):
+    results = defaultdict(list)
+    packages = PackageVersion.objects.exclude(is_editable=True)
+    for pv in packages:
         pv.update_from_pypi()
+        results[pv.diff_status].append(pv)
         logger.debug("Updated package from PyPI: %r", pv)
+    results['refreshed_at'] = tz_now()
+    return results
 
 
 def clean():
@@ -76,13 +84,23 @@ class Command(BaseCommand):
             default=False,
             help='Delete all existing requirements'
         )
-
-    def do_command(self, *args, **kwargs):
-        raise NotImplementedError()
+        parser.add_argument(
+            '--notify',
+            help='Send results notification email'
+        )
+        parser.add_argument(
+            '--from',
+            default='Django Package Monitor <packages@example.com>',
+            help='Notification email \'from\' address'
+        )
+        parser.add_argument(
+            '--subject',
+            default='Package manager update',
+            help='Notification email subject line.'
+        )
 
     def handle(self, *args, **options):
         """Run the managemement command."""
-
         if options['clean']:
             clean()
 
@@ -90,4 +108,14 @@ class Command(BaseCommand):
             local()
 
         if options['remote']:
-            remote()
+            results = remote()
+            render = lambda t: render_to_string(t, results)
+            if options['notify']:
+                send_mail(
+                    options['subject'],
+                    render('summary.txt'),
+                    options['from'],
+                    [options['notify']],
+                    html_message=render('summary.html'),
+                    fail_silently=False,
+                )

@@ -1,0 +1,7 @@
+<tr>
+    <td>{{ pv.package_name }}</td>
+    <td>{{ pv.current_version }}</td>
+    <td>{{ pv.next_version }}</td>
+    <td style="color: {% if pv.diff_status = 'major' %}red{% elif pv.diff_status = 'minor' %}orange{% elif pv.diff_status = 'patch' %}green{% endif %}">{{ pv.latest_version }}</td>
+    <td>{{ pv.diff_status }}</td>
+</tr>

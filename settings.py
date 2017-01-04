@@ -13,6 +13,9 @@ USE_I18N = True
 USE_TZ = True
 TIMEZONE = 'Europe/London'
 
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'localhost')
+EMAIL_PORT = os.get_env('EMAIL_PORT', '25')
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
