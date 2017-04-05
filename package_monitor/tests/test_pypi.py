@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Tests for the pypi module."""
 import json
-import mock
 from os import path
+from unittest import mock
 
 from django.core.cache import cache
 from django.test import TestCase

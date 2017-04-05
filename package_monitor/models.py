@@ -107,11 +107,8 @@ class PackageVersion(models.Model):
                 logger.debug("Unparseable package version (%s): %s", requirement.specs[0][1], ex)
             self.url = pypi.package_url(requirement.name)
 
-    def __unicode__(self):
-        return u"Package '%s'" % self.raw
-
     def __str__(self):
-        return unicode(self).encode('utf-8')
+        return "Package '%s'" % self.raw
 
     def update_from_pypi(self):
         """Call get_latest_version and then save the object."""

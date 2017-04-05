@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
 
-from mock import patch
+from unittest.mock import patch
 from requirements import requirement
 from semantic_version import Version
 
@@ -39,8 +39,7 @@ class PackageVersionTests(TestCase):
         self.assertEqual(v.url, None)
 
         v.raw = 'foobar==1.2'
-        self.assertEqual(unicode(v), u"Package 'foobar==1.2'")
-        self.assertEqual(str(v), u"Package 'foobar==1.2'")
+        self.assertEqual(str(v), "Package 'foobar==1.2'")
 
     def test_init(self):
         r = requirement.Requirement.parse("foobar==0.0.1")
