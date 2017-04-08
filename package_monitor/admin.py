@@ -99,7 +99,7 @@ class PackageVersionAdmin(admin.ModelAdmin):
         else:
             return obj.latest_version != obj.current_version
     _updateable.boolean = True
-    _updateable.short_description = u"Update available"
+    _updateable.short_description = "Update available"
 
     def available_updates(self, obj):
         """Print out all versions ahead of the current one."""

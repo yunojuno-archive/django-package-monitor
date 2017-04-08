@@ -20,7 +20,7 @@ def cache_key(package_name):
 
 def package_url(package_name):
     """Return fully-qualified URL to package on PyPI (JSON endpoint)."""
-    return u"http://pypi.python.org/pypi/%s/json" % package_name
+    return "http://pypi.python.org/pypi/%s/json" % package_name
 
 
 def parse_version(version_string):
@@ -91,7 +91,7 @@ class Package(object):
 
     def all_versions(self):
         release_data = self.data().get('releases')
-        versions = [parse_version(r) for r in release_data.keys()]
+        versions = [parse_version(r) for r in list(release_data.keys())]
         return sorted([v for v in versions if v is not None])
 
     def next_version(self, current_version):

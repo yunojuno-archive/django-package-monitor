@@ -52,7 +52,7 @@ class PackageVersionTests(TestCase):
         self.assertEqual(v.diff_status, 'unknown')
         self.assertEqual(v.checked_pypi_at, None)
         self.assertEqual(v.is_editable, False)
-        self.assertEqual(v.url, u"http://pypi.python.org/pypi/foobar/json")
+        self.assertEqual(v.url, "http://pypi.python.org/pypi/foobar/json")
 
     def test_init_editable(self):
         url = "git+https://foobar.com#egg=foo"
@@ -79,7 +79,7 @@ class PackageVersionTests(TestCase):
         self.assertEqual(v.checked_pypi_at, None)
         self.assertEqual(v.is_editable, False)
         self.assertEqual(v.is_editable, False)
-        self.assertEqual(v.url, u'http://pypi.python.org/pypi/foo/json')
+        self.assertEqual(v.url, 'http://pypi.python.org/pypi/foo/json')
 
     @patch('requests.get', mock_get)
     def test_update_from_pypi(self):
