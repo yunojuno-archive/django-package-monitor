@@ -27,6 +27,8 @@ def check_pypi(modeladmin, request, queryset):
             logger.debug("Ignoring version update '%s' is editable", p.package_name)
         else:
             p.update_from_pypi()
+
+
 check_pypi.short_description = "Update selected packages from PyPI"
 
 
@@ -76,15 +78,39 @@ class PackageVersionAdmin(admin.ModelAdmin):
     actions = (check_pypi,)
     change_list_template = 'change_list.html'
     list_display = (
-        'package_name', 'is_editable', '_updateable', 'current_version', 'next_version',
-        'latest_version', '_licence', 'diff_status', 'checked_pypi_at', 'is_parseable'
+        'package_name',
+        '_updateable',
+        'current_version',
+        'next_version',
+        'latest_version',
+        'supports_py3',
+        '_licence',
+        'diff_status',
+        'checked_pypi_at',
     )
-    list_filter = ('diff_status', 'is_editable', 'is_parseable', UpdateAvailableListFilter)
+    list_filter = (
+        'diff_status',
+        'is_editable',
+        'is_parseable',
+        UpdateAvailableListFilter,
+        'supports_py3'
+    )
     ordering = ["package_name"]
     readonly_fields = (
-        'package_name', 'is_editable', 'current_version', 'next_version',
-        'latest_version', 'diff_status', 'checked_pypi_at',
-        'url', 'licence', 'raw', 'available_updates', 'is_parseable'
+        'package_name',
+        'is_editable',
+        'is_parseable',
+        'current_version',
+        'next_version',
+        'latest_version',
+        'diff_status',
+        'checked_pypi_at',
+        'url',
+        'licence',
+        'raw',
+        'available_updates',
+        'python_support',
+        'supports_py3',
     )
 
     def _licence(self, obj):
@@ -107,5 +133,6 @@ class PackageVersionAdmin(admin.ModelAdmin):
         package = pypi.Package(obj.package_name)
         versions = package.all_versions()
         return html_list([v for v in versions if v > obj.current_version])
+
 
 admin.site.register(PackageVersion, PackageVersionAdmin)

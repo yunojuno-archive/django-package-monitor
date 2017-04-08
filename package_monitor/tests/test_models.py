@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
 
-from unittest.mock import patch
 from requirements import requirement
 from semantic_version import Version
 
 from .. import models
+from ..compat import mock
 from ..tests import mock_get
 
 
@@ -81,7 +81,7 @@ class PackageVersionTests(TestCase):
         self.assertEqual(v.is_editable, False)
         self.assertEqual(v.url, 'http://pypi.python.org/pypi/foo/json')
 
-    @patch('requests.get', mock_get)
+    @mock.patch('requests.get', mock_get)
     def test_update_from_pypi(self):
         """Test the update_from_pypi method."""
         # editable packages return None
@@ -93,7 +93,7 @@ class PackageVersionTests(TestCase):
         self.assertEqual(v.latest_version, Version('1.9.1'))
         self.assertEqual(v.diff_status, 'major')
 
-    @patch('requests.get', mock_get)
+    @mock.patch('requests.get', mock_get)
     def test_update_from_pypi_unparseable(self):
         """Test the update_from_pypi method for unparseable requirements."""
         # editable packages return None
