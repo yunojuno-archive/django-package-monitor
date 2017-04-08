@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
 
-from mock import patch
 from requirements import requirement
 from semantic_version import Version
 
 from .. import models
+from ..compat import mock
 from ..tests import mock_get
 
 
@@ -39,8 +39,7 @@ class PackageVersionTests(TestCase):
         self.assertEqual(v.url, None)
 
         v.raw = 'foobar==1.2'
-        self.assertEqual(unicode(v), u"Package 'foobar==1.2'")
-        self.assertEqual(str(v), u"Package 'foobar==1.2'")
+        self.assertEqual(str(v), "Package 'foobar==1.2'")
 
     def test_init(self):
         r = requirement.Requirement.parse("foobar==0.0.1")
@@ -53,7 +52,7 @@ class PackageVersionTests(TestCase):
         self.assertEqual(v.diff_status, 'unknown')
         self.assertEqual(v.checked_pypi_at, None)
         self.assertEqual(v.is_editable, False)
-        self.assertEqual(v.url, u"http://pypi.python.org/pypi/foobar/json")
+        self.assertEqual(v.url, "http://pypi.python.org/pypi/foobar/json")
 
     def test_init_editable(self):
         url = "git+https://foobar.com#egg=foo"
@@ -80,9 +79,9 @@ class PackageVersionTests(TestCase):
         self.assertEqual(v.checked_pypi_at, None)
         self.assertEqual(v.is_editable, False)
         self.assertEqual(v.is_editable, False)
-        self.assertEqual(v.url, u'http://pypi.python.org/pypi/foo/json')
+        self.assertEqual(v.url, 'http://pypi.python.org/pypi/foo/json')
 
-    @patch('requests.get', mock_get)
+    @mock.patch('requests.get', mock_get)
     def test_update_from_pypi(self):
         """Test the update_from_pypi method."""
         # editable packages return None
@@ -94,7 +93,7 @@ class PackageVersionTests(TestCase):
         self.assertEqual(v.latest_version, Version('1.9.1'))
         self.assertEqual(v.diff_status, 'major')
 
-    @patch('requests.get', mock_get)
+    @mock.patch('requests.get', mock_get)
     def test_update_from_pypi_unparseable(self):
         """Test the update_from_pypi method for unparseable requirements."""
         # editable packages return None

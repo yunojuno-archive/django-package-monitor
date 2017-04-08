@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """Tests for the pypi module."""
 import json
-import mock
 from os import path
 
 from django.core.cache import cache
@@ -10,6 +9,7 @@ from django.test import TestCase
 from semantic_version import Version
 
 from .. import pypi
+from ..compat import mock
 
 
 def mock_get(packge_url):
@@ -73,7 +73,7 @@ class FunctionTests(TestCase):
         self.assertEqual(pypi.parse_version("foobar"), None)
 
     def test_package_url(self):
-        self.assertEqual(pypi.package_url('django'), u"http://pypi.python.org/pypi/django/json")
+        self.assertEqual(pypi.package_url('django'), "http://pypi.python.org/pypi/django/json")
 
 
 class PackageTests(TestCase):

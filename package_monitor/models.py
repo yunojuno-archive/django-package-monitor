@@ -48,6 +48,14 @@ class PackageVersion(models.Model):
         null=True, blank=True,
         help_text="Next available version available from PyPI."
     )
+    python_support = models.CharField(
+        max_length=100,
+        help_text="Python version support as specified in the PyPI classifiers."
+    )
+    supports_py3 = models.NullBooleanField(
+        default=None,
+        help_text="Does this package support Python3?"
+    )
     licence = models.CharField(
         max_length=100,
         blank=True,
@@ -107,11 +115,8 @@ class PackageVersion(models.Model):
                 logger.debug("Unparseable package version (%s): %s", requirement.specs[0][1], ex)
             self.url = pypi.package_url(requirement.name)
 
-    def __unicode__(self):
-        return u"Package '%s'" % self.raw
-
     def __str__(self):
-        return unicode(self).encode('utf-8')
+        return "Package '%s'" % self.raw
 
     def update_from_pypi(self):
         """Call get_latest_version and then save the object."""
@@ -121,6 +126,8 @@ class PackageVersion(models.Model):
             self.latest_version = package.latest_version()
             self.next_version = package.next_version(self.current_version)
             self.diff_status = pypi.version_diff(self.current_version, self.latest_version)
+            self.python_support = package.python_support()
+            self.supports_py3 = package.supports_py3()
         self.checked_pypi_at = tz_now()
         self.save()
         return self

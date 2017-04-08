@@ -20,15 +20,22 @@ def cache_key(package_name):
 
 def package_url(package_name):
     """Return fully-qualified URL to package on PyPI (JSON endpoint)."""
-    return u"http://pypi.python.org/pypi/%s/json" % package_name
+    return "http://pypi.python.org/pypi/%s/json" % package_name
 
 
 def parse_version(version_string):
     """Parse a string into a PackageVersion."""
     try:
         return Version.coerce(version_string)
-    except:
+    except Exception:
         return None
+
+
+def parse_python(classifiers):
+    """Parse out the versions of python supported a/c classifiers."""
+    prefix = 'Programming Language :: Python ::'
+    python_classifiers = [c.split('::')[2].strip() for c in classifiers if c.startswith(prefix)]
+    return ', '.join([c for c in python_classifiers if parse_version(c)])
 
 
 def version_diff(version1, version2):
@@ -86,12 +93,15 @@ class Package(object):
     def licence(self):
         return self.info().get('license') or '(unspecified)'
 
+    def classifiers(self):
+        return self.info().get('classifiers', [])
+
     def latest_version(self):
         return parse_version(self.info().get('version'))
 
     def all_versions(self):
         release_data = self.data().get('releases')
-        versions = [parse_version(r) for r in release_data.keys()]
+        versions = [parse_version(r) for r in list(release_data.keys())]
         return sorted([v for v in versions if v is not None])
 
     def next_version(self, current_version):
@@ -99,3 +109,10 @@ class Package(object):
             return min([v for v in self.all_versions() if v > current_version])
         except ValueError:
             return None
+
+    def python_support(self):
+        return parse_python(self.classifiers())
+
+    def supports_py3(self):
+        versions = self.python_support().split(', ')
+        return len([v for v in versions if v != '' and v[0] == '3']) > 0

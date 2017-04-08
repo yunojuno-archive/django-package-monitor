@@ -4,7 +4,6 @@
 .. image:: https://badge.fury.io/py/django-package-monitor.svg
     :target: https://badge.fury.io/py/django-package-monitor
 
-
 Django Package Monitor
 ======================
 
