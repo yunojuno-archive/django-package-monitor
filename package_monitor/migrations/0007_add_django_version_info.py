@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterField(
             model_name='packageversion',
-            name=b'python_support',
+            name='python_support',
             field=models.CharField(help_text=b'Python version support as specified in the PyPI classifiers.', max_length=100, null=True, blank=True),
         ),
     ]
