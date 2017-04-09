@@ -50,7 +50,13 @@ class PackageVersion(models.Model):
     )
     python_support = models.CharField(
         max_length=100,
+        blank=True, null=True,
         help_text="Python version support as specified in the PyPI classifiers."
+    )
+    django_support = models.CharField(
+        max_length=100,
+        blank=True, null=True,
+        help_text="Django version support as specified in the PyPI classifiers."
     )
     supports_py3 = models.NullBooleanField(
         default=None,
@@ -127,6 +133,7 @@ class PackageVersion(models.Model):
             self.next_version = package.next_version(self.current_version)
             self.diff_status = pypi.version_diff(self.current_version, self.latest_version)
             self.python_support = package.python_support()
+            self.django_support = package.django_support()
             self.supports_py3 = package.supports_py3()
         self.checked_pypi_at = tz_now()
         self.save()
