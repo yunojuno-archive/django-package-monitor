@@ -1,4 +1,3 @@
-include LICENCE
+include LICENSE
 include README.rst
-include requirements.txt
 recursive-include package_monitor/templates *
