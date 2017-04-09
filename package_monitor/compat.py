@@ -5,5 +5,5 @@ try:
     print("Successfully imports mock from unittest")
 except ImportError:
     print("Trying to import standalone mock")
-    import mock
+    import mock  # noqa
     print("Successfully imported standalone mock")

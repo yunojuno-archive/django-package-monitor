@@ -114,5 +114,8 @@ class Package(object):
         return parse_python(self.classifiers())
 
     def supports_py3(self):
-        versions = self.python_support().split(', ')
-        return len([v for v in versions if v != '' and v[0] == '3']) > 0
+        if self.python_support() == '':
+            return None
+        else:
+            versions = self.python_support().split(', ')
+            return len([v for v in versions if v != '' and v[0] == '3']) > 0
