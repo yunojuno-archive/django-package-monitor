@@ -111,6 +111,7 @@ class PackageVersionAdmin(admin.ModelAdmin):
         'available_updates',
         'python_support',
         'supports_py3',
+        'django_support'
     )
 
     def _licence(self, obj):

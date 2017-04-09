@@ -38,6 +38,13 @@ def parse_python(classifiers):
     return ', '.join([c for c in python_classifiers if parse_version(c)])
 
 
+def parse_django(classifiers):
+    """Parse out the versions of django supported a/c classifiers."""
+    prefix = 'Framework :: Django ::'
+    django_classifiers = [c.split('::')[2].strip() for c in classifiers if c.startswith(prefix)]
+    return ', '.join([c for c in django_classifiers if parse_version(c)])
+
+
 def version_diff(version1, version2):
     """Return string representing the diff between package versions.
 
@@ -112,6 +119,9 @@ class Package(object):
 
     def python_support(self):
         return parse_python(self.classifiers())
+
+    def django_support(self):
+        return parse_django(self.classifiers())
 
     def supports_py3(self):
         if self.python_support() == '':
