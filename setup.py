@@ -8,7 +8,7 @@ chdir(path.normpath(path.join(path.abspath(__file__), pardir)))
 
 setup(
     name="django-package-monitor",
-    version="0.5.3",
+    version="0.5.4",
     packages=find_packages(),
     install_requires=[
         'django>=1.8',
@@ -21,10 +21,10 @@ setup(
     license='MIT',
     long_description=README,
     url='https://github.com/yunojuno/django-package-monitor',
-    author='Hugo Rodger-Brown',
-    author_email='hugo@yunojuno.com',
-    maintainer='Hugo Rodger-Brown',
-    maintainer_email='hugo@yunojuno.com',
+    author='YunoJuno',
+    author_email='code@yunojuno.com',
+    maintainer='YunoJuno',
+    maintainer_email='cod@yunojuno.com',
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
