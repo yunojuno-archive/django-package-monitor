@@ -124,6 +124,12 @@ class PackageVersion(models.Model):
     def __str__(self):
         return "Package '%s'" % self.raw
 
+    def save(self, *args, **kwargs):
+        # ensure the raw line won't blow up DB.
+        self.raw = self.raw[:200]
+        super(PackageVersion, self).save(*args, **kwargs)
+        return self
+
     def update_from_pypi(self):
         """Call get_latest_version and then save the object."""
         package = pypi.Package(self.package_name)

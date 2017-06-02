@@ -8,6 +8,13 @@ from .. import models
 from ..compat import mock
 from ..tests import mock_get
 
+# valid line from a pip-compile generated requirements.txt
+SAMPLE_LINE = (
+    "six==1.10.0               # via apscheduler, bleach, django-appmail, "
+    "django-rosetta, elasticsearch-dsl, html5lib, microsofttranslator, "
+    "python-dateutil, python-memcached, social-auth-app-django, social-auth-core, twilio"
+)
+
 
 class PackageVersionTests(TestCase):
 
@@ -42,17 +49,17 @@ class PackageVersionTests(TestCase):
         self.assertEqual(str(v), "Package 'foobar==1.2'")
 
     def test_init(self):
-        r = requirement.Requirement.parse("foobar==0.0.1")
+        r = requirement.Requirement.parse(SAMPLE_LINE)
         v = models.PackageVersion(requirement=r)
-        self.assertEqual(v.package_name, 'foobar')
-        self.assertEqual(v.raw, 'foobar==0.0.1')
-        self.assertEqual(v.current_version, Version('0.0.1'))
+        self.assertEqual(v.package_name, 'six')
+        self.assertEqual(v.raw, SAMPLE_LINE)
+        self.assertEqual(v.current_version, Version('1.10.0'))
         self.assertEqual(v.latest_version, None)
         self.assertEqual(v.licence, '')
         self.assertEqual(v.diff_status, 'unknown')
         self.assertEqual(v.checked_pypi_at, None)
         self.assertEqual(v.is_editable, False)
-        self.assertEqual(v.url, "http://pypi.python.org/pypi/foobar/json")
+        self.assertEqual(v.url, "http://pypi.python.org/pypi/six/json")
 
     def test_init_editable(self):
         url = "git+https://foobar.com#egg=foo"
@@ -104,3 +111,10 @@ class PackageVersionTests(TestCase):
         self.assertEqual(v.current_version, None)
         self.assertEqual(v.latest_version, None)
         self.assertEqual(v.diff_status, 'unknown')
+
+    def test_save(self):
+        v = models.PackageVersion(raw=SAMPLE_LINE)
+        v1 = v.save()
+        self.assertEqual(v1, v)
+        self.assertNotEqual(v.raw, SAMPLE_LINE)
+        self.assertEqual(v.raw, SAMPLE_LINE[:200])
