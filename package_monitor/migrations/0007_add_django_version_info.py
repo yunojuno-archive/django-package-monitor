@@ -14,11 +14,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='packageversion',
             name='django_support',
-            field=models.CharField(help_text=b'Django version support as specified in the PyPI classifiers.', max_length=100, null=True, blank=True),
+            field=models.CharField(help_text='Django version support as specified in the PyPI classifiers.', max_length=100, null=True, blank=True),
         ),
         migrations.AlterField(
             model_name='packageversion',
             name='python_support',
-            field=models.CharField(help_text=b'Python version support as specified in the PyPI classifiers.', max_length=100, null=True, blank=True),
+            field=models.CharField(help_text='Python version support as specified in the PyPI classifiers.', max_length=100, null=True, blank=True),
         ),
     ]
