@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from __future__ import unicode_literals
 
 from django.db import migrations, models
 
@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='packageversion',
             name='is_parseable',
-            field=models.BooleanField(default=False, help_text=b'True if the version can be parsed as a valid semver version.', verbose_name=b'Parseable'),
+            field=models.BooleanField(default=False, help_text='True if the version can be parsed as a valid semver version.', verbose_name='Parseable'),
         ),
     ]
