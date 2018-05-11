@@ -70,7 +70,7 @@ class FunctionTests(TestCase):
         self.assertEqual(pypi.parse_version("foobar"), None)
 
     def test_package_url(self):
-        self.assertEqual(pypi.package_url('django'), "http://pypi.python.org/pypi/django/json")
+        self.assertEqual(pypi.package_url('django'), "https://pypi.python.org/pypi/django/json")
 
 
 class PackageTests(TestCase):

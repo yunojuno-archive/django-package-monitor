@@ -18,7 +18,7 @@ def cache_key(package_name):
 
 def package_url(package_name):
     """Return fully-qualified URL to package on PyPI (JSON endpoint)."""
-    return "http://pypi.python.org/pypi/%s/json" % package_name
+    return "https://pypi.python.org/pypi/%s/json" % package_name
 
 
 def parse_version(version_string):
