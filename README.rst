@@ -7,6 +7,8 @@
 Django Package Monitor
 ======================
 
+**This package is now Python3 and Django 1.11 and above. For previous versions please refer to the Python2 branch.**
+
 A Django app for keeping track of dependency updates.
 
 Background

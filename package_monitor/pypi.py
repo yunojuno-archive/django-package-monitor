@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-"""Contains free-floating functions for interacting with PyPI."""
 import logging
 
 import requests

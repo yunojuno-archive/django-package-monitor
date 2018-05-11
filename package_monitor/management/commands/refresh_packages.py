@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Management command for syncing requirements."""
 from collections import defaultdict
 from logging import getLogger
