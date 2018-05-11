@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from os import getenv, path
 
 DEBUG = True

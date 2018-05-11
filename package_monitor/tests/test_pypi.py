@@ -1,15 +1,12 @@
-# -*- coding: utf-8 -*-
-"""Tests for the pypi module."""
 import json
 from os import path
+from unittest import mock
 
 from django.core.cache import cache
 from django.test import TestCase
-
 from semantic_version import Version
 
 from .. import pypi
-from ..compat import mock
 
 
 def mock_get(packge_url):

@@ -1,12 +1,14 @@
-# -*- coding: utf-8 -*-
-from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.staticfiles import views
+try:
+    from django.urls import re_path, include
+except ImportError:
+    from django.conf.urls import url as re_path, include
 
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^package_monitor/', include('package_monitor.urls', namespace='package_monitor')),  # noqa
-    url(r'^static/(?P<path>.*)$', views.serve),
+    re_path(r'^admin/', admin.site.urls),
+    re_path(r'^package_monitor/', include('package_monitor.urls')),  # noqa
+    re_path(r'^static/(?P<path>.*)$', views.serve),
 ]

@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
-from django.test import TestCase
+from unittest import mock
 
+from django.test import TestCase
 from requirements import requirement
 from semantic_version import Version
 
 from .. import models
-from ..compat import mock
 from ..tests import mock_get
 
 # valid line from a pip-compile generated requirements.txt

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-"""package_monitor app settings."""
 from os import path, getenv
 
 from django.conf import settings

@@ -1,12 +1,7 @@
-# *-8 coding: utf-8 -*-
-"""Parse requirements file, and work out whether there are any updates."""
-from __future__ import unicode_literals
-
 import logging
 
 from django.db import models
 from django.utils.timezone import now as tz_now
-
 from semantic_version import Version
 from semantic_version.django_fields import VersionField
 
