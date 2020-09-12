@@ -6,7 +6,7 @@ from django.core.cache import cache
 from django.test import TestCase
 from semantic_version import Version
 
-from .. import pypi
+from package_monitor import pypi
 
 
 def mock_get(packge_url):

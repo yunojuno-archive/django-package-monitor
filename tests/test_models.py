@@ -4,14 +4,16 @@ from django.test import TestCase
 from requirements import requirement
 from semantic_version import Version
 
-from .. import models
-from ..tests import mock_get
+from package_monitor import models
+
+from . import mock_get
 
 # valid line from a pip-compile generated requirements.txt
 SAMPLE_LINE = (
     "six==1.10.0               # via apscheduler, bleach, django-appmail, "
     "django-rosetta, elasticsearch-dsl, html5lib, microsofttranslator, "
-    "python-dateutil, python-memcached, social-auth-app-django, twilio"
+    "python-dateutil, python-memcached, social-auth-app-django, twilio, "
+    "fantastically-long-requirement"
 )
 
 
