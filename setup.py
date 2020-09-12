@@ -9,13 +9,13 @@ chdir(path.normpath(path.join(path.abspath(__file__), pardir)))
 
 setup(
     name="django-package-monitor",
-    version="0.6.1",
+    version="1.0",
     packages=find_packages(),
     install_requires=[
-        "django>=1.11",
-        "requests>=2.0",
-        "requirements_parser==0.1.0",
-        "semantic_version>=2.5",
+        "django>=2.0",
+        "requests",
+        "requirements_parser",
+        "semantic_version",
     ],
     include_package_data=True,
     description="Requirements package monitor for Django projects.",
@@ -32,7 +32,6 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Framework :: Django",
-        "Framework :: Django :: 1.11",
         "Framework :: Django :: 2.0",
         "Framework :: Django :: 2.1",
         "Framework :: Django :: 2.2",
