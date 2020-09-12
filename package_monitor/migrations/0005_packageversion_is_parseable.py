@@ -7,13 +7,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('package_monitor', '0004_auto_20160109_1339'),
+        ("package_monitor", "0004_auto_20160109_1339"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='packageversion',
-            name='is_parseable',
-            field=models.BooleanField(default=False, help_text='True if the version can be parsed as a valid semver version.', verbose_name='Parseable'),
+            model_name="packageversion",
+            name="is_parseable",
+            field=models.BooleanField(
+                default=False,
+                help_text=(
+                    "True if the version can be parsed as a valid semver version."
+                ),
+                verbose_name="Parseable",
+            ),
         ),
     ]

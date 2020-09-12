@@ -5,7 +5,8 @@ exclude =
   .git,
   .venv,
   .tox,
-  tests
+  tests,
+  settings.py
 # http://flake8.pycqa.org/en/2.5.5/warnings.html#warning-error-codes
 ignore =
   # pydocstyle - docstring conventions (PEP257)
