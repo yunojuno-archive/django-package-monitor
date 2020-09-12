@@ -1,6 +1,6 @@
 # this requirements.txt can be used locally to
 # demonstrate the app working.
-django>=2.0
+django>=2.1
 requests
 requirements_parser
 semantic_version
